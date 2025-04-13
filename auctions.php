@@ -180,7 +180,7 @@ include "includes/header.php";
     <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
         <h2 class="text-2xl font-bold mb-4">Place Your Bid</h2>
         <form id="place-bid-form" method="POST">
-            <input type="hidden" name="item_id" id="modal-item-id">
+            <input type="text" name="item_id" id="modal-item-id">
             <div class="mb-4">
                 <label for="bid_amount" class="block text-gray-700">Bid Amount</label>
                 <input type="number" name="bid_amount" id="bid_amount" class="w-full bg-gray-200 px-4 py-2 rounded" required>
@@ -203,6 +203,14 @@ include "includes/header.php";
         modal.classList.toggle('hidden');
     }
 </script> -->
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Make sure the user is logged in and the session variable exists
+$userId = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+?>
 <script>
     function toggleBidModal(itemId = null) {
         const modal = document.getElementById('place-bid-modal');
@@ -218,10 +226,9 @@ include "includes/header.php";
 
         const itemId = document.getElementById('modal-item-id').value;
         const bidAmount = document.getElementById('bid_amount').value;  
-        const userId = <?php echo json_encode($_SESSION['user_id'] ?? null); ?>;
+        const userId = <?php echo json_encode($userId); ?>;
 
-        // Validate bid amount
-
+        
         // Send an AJAX request to place the bid
         fetch('insert_bid.php', {
             method: 'POST',

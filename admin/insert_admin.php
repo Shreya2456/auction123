@@ -3,7 +3,7 @@
 $host = 'localhost';
 $dbname = 'auction_db';
 $username = 'root';
-$password = '';
+$password = 'root';
 
 $db = new mysqli($host, $username, $password, $dbname);
 
