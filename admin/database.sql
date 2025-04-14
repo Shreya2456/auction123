@@ -24,3 +24,18 @@ INSERT INTO products (name, description, price) VALUES
 ('Product 1', 'Description for product 1', 100.00),
 ('Product 2', 'Description for product 2', 200.00),
 ('Product 3', 'Description for product 3', 300.00);
+
+
+
+
+CREATE TABLE bids (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    item_id INT(11) NOT NULL,
+    user_id INT(11) NOT NULL,
+    bid_amount DECIMAL(10,2) NOT NULL,
+    bid_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    auction_id INT(11) NOT NULL, 
+    PRIMARY KEY (id),
+    FOREIGN KEY (item_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

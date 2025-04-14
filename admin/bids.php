@@ -64,7 +64,7 @@ $bids = $result->fetch_all(MYSQLI_ASSOC);
                     <thead>
                         <tr class="bg-gray-100">
                             <th class="border border-gray-200 px-4 py-2 text-left">Bid ID</th>
-                            <th class="border border-gray-200 px-4 py-2 text-left">Auction ID</th>
+                            <th class="border border-gray-200 px-4 py-2 text-left">Item ID</th>
                             <th class="border border-gray-200 px-4 py-2 text-left">User</th>
                             <th class="border border-gray-200 px-4 py-2 text-left">Bid Amount</th>
                             <th class="border border-gray-200 px-4 py-2 text-left">Bid Time</th>
@@ -75,7 +75,7 @@ $bids = $result->fetch_all(MYSQLI_ASSOC);
                             <?php foreach ($bids as $bid): ?>
                                 <tr>
                                     <td class="border border-gray-200 px-4 py-2"><?php echo htmlspecialchars($bid['bid_id']); ?></td>
-                                    <td class="border border-gray-200 px-4 py-2"><?php echo htmlspecialchars($bid['auction_id']); ?></td>
+                                    <td class="border border-gray-200 px-4 py-2"><?php echo htmlspecialchars($bid['item_id']); ?></td>
                                     <td class="border border-gray-200 px-4 py-2"><?php echo htmlspecialchars($bid['user_name']); ?></td>
                                     <td class="border border-gray-200 px-4 py-2"><?php echo htmlspecialchars($bid['bid_amount']); ?></td>
                                     <td class="border border-gray-200 px-4 py-2"><?php echo htmlspecialchars($bid['bid_time']); ?></td>
@@ -93,3 +93,5 @@ $bids = $result->fetch_all(MYSQLI_ASSOC);
     </div>
 </body>
 </html>
+
+

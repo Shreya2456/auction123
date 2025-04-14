@@ -1,19 +1,23 @@
 <?php
-// Enable error reporting for debugging
-header('Content-Type: application/json');   
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-// Start output buffering to prevent unexpected output
-ob_start();
+require_once "./includes/db.php";
 
-require_once "../includes/db.php";
 session_start();
-$data=json_decode(file_get_contents('php://input'),true);
-$user_id = $data['user_id'] ?? null;
-$item_id = $data['item_id'] ?? null;
-$bid_amount = $data['bid_amount'] ?? null;
+
+
+header('Content-Type: application/json');
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+// Check login
+if (!isset($_SESSION['id'])) {
+    echo json_encode(['success' => false, 'message' => 'You must be logged in to place a bid.']);
+    exit;
+}
+
+$user_id = $_SESSION['id']; // Always use from session
+$item_id = isset($data['item_id']) ? (int)$data['item_id'] : null;  // Cast to integer
+$bid_amount = isset($data['bid_amount']) ? (float)$data['bid_amount'] : null;  // Cast to float
 
 $stmt = $db->prepare("INSERT INTO bids (user_id, item_id, bid_amount, bid_time) VALUES (?, ?, ?, NOW())");
 if (!$stmt) {
